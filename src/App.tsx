@@ -13,11 +13,9 @@ function App() {
 
   const [output, setOutput] = useState('Waiting for action...');
 
-  const showOutput = (data: any) => {
+  const showOutput = (data: string | object) => {
     if (typeof data === 'string') {
       setOutput(data);
-    } else if ('message' in data) {
-      setOutput(data.message); // Show backend message
     } else {
       setOutput(JSON.stringify(data, null, 2));
     }
@@ -54,29 +52,17 @@ function App() {
         credentials: 'include',
       });
 
-      const text = await res.text();
-      let data;
-
-      try {
-        data = JSON.parse(text);
-      } catch {
-        data = text;
-      }
-
-      showOutput({
-        status: res.status,
-        ok: res.ok,
-        response: data,
-      });
+      const data = await res.json();
+      showOutput(data); // same as register, login, etc.
     } catch (err) {
       if (err instanceof Error) {
         showOutput({ error: err.message });
       } else {
         showOutput({ error: String(err) });
       }
-    };
+    }
   }
-
+  
   const getMe = async () => {
     const res = await fetch(`${api}/auth/me`, {
       method: 'GET',

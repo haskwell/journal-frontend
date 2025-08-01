@@ -83,69 +83,69 @@ function App() {
   };
 
 
-return (
-  <div
-    style={{
-      fontFamily: 'system-ui, sans-serif',
-      padding: '2rem',
-      maxWidth: '600px',
-      margin: 'auto',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '8px',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    }}
-  >
-    <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>📝 Journal API Tester</h1>
+  return (
+    <div
+      style={{
+        fontFamily: 'system-ui, sans-serif',
+        padding: '2rem',
+        maxWidth: '600px',
+        margin: 'auto',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '8px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+      }}
+    >
+      <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>📝 Journal API Tester</h1>
 
-    {/* Section */}
-    <section style={{ marginBottom: '2rem' }}>
-      <h2>Register</h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <input value={regUsername} onChange={(e) => setRegUsername(e.target.value)} placeholder="Username" />
-        <input value={regEmail} onChange={(e) => setRegEmail(e.target.value)} placeholder="Email" />
-        <input type="password" value={regPassword} onChange={(e) => setRegPassword(e.target.value)} placeholder="Password" />
-        <button onClick={register}>Register</button>
-      </div>
-    </section>
+      {/* Section */}
+      <section style={{ marginBottom: '2rem' }}>
+        <h2>Register</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <input value={regUsername} onChange={(e) => setRegUsername(e.target.value)} placeholder="Username" />
+          <input value={regEmail} onChange={(e) => setRegEmail(e.target.value)} placeholder="Email" />
+          <input type="password" value={regPassword} onChange={(e) => setRegPassword(e.target.value)} placeholder="Password" />
+          <button onClick={register}>Register</button>
+        </div>
+      </section>
 
-    {/* Section */}
-    <section style={{ marginBottom: '2rem' }}>
-      <h2>Login</h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <input value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="Email" />
-        <input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="Password" />
-        <button onClick={login}>Login</button>
-      </div>
-    </section>
+      {/* Section */}
+      <section style={{ marginBottom: '2rem' }}>
+        <h2>Login</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <input value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="Email" />
+          <input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="Password" />
+          <button onClick={login}>Login</button>
+        </div>
+      </section>
 
-    {/* Buttons */}
-    <section style={{ marginBottom: '2rem' }}>
-      <h2>Session</h2>
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-        <button onClick={logout}>Logout</button>
-        <button onClick={getMe}>Get /auth/me</button>
-      </div>
-    </section>
+      {/* Buttons */}
+      <section style={{ marginBottom: '2rem' }}>
+        <h2>Session</h2>
+        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <button onClick={logout}>Logout</button>
+          <button onClick={getMe}>Get /auth/me</button>
+        </div>
+      </section>
 
-    {/* Response */}
-    <section>
-      <h2>Response</h2>
-      <pre
-        style={{
-          background: '#eef2f7',
-          padding: '1rem',
-          borderRadius: '4px',
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-word',
-          fontSize: '0.9rem',
-          lineHeight: '1.4',
-        }}
-      >
-        {output}
-      </pre>
-    </section>
-  </div>
-);
+      {/* Response */}
+      <section>
+        <h2>Response</h2>
+        <pre
+          style={{
+            background: '#eef2f7',
+            padding: '1rem',
+            borderRadius: '4px',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            fontSize: '0.9rem',
+            lineHeight: '1.4',
+          }}
+        >
+          {output}
+        </pre>
+      </section>
+    </div>
+  );
 
 }
 

@@ -13,9 +13,11 @@ function App() {
 
   const [output, setOutput] = useState('Waiting for action...');
 
-  const showOutput = (data: string | object) => {
+  const showOutput = (data: any) => {
     if (typeof data === 'string') {
       setOutput(data);
+    } else if ('message' in data) {
+      setOutput(data.message); // Show backend message
     } else {
       setOutput(JSON.stringify(data, null, 2));
     }

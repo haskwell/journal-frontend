@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 function MainPage() {
-  //const api = "http://localhost:8787/api";
-  const api = 'https://journal-backend.haskwell.workers.dev/api';
+  const api = "http://localhost:8787/api";
+  //const api = 'https://journal-backend.haskwell.workers.dev/api';
   const [regUsername, setRegUsername] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
@@ -91,7 +91,7 @@ function MainPage() {
 
       <section>
         <h2>Login</h2>
-        <input value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="Email" />
+        <input value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="Username" />
         <input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="Password" />
         <button onClick={login}>Login</button>
       </section>

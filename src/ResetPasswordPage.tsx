@@ -7,8 +7,8 @@ function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
 
-  //const api = "http://localhost:8787/api";
-  const api = 'https://journal-backend.haskwell.workers.dev/api';
+  const api = "http://localhost:8787/api";
+  //const api = 'https://journal-backend.haskwell.workers.dev/api';
   const resetPassword = async () => {
     if (!token) {
       setMessage('Invalid or missing token.');
@@ -18,7 +18,7 @@ function ResetPasswordPage() {
     const res = await fetch(`${api}/password-reset`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token, newPassword }),
+      body: JSON.stringify({ token, password: newPassword }),
     });
 
     const data = await res.json();

@@ -12,6 +12,9 @@ function MainPage() {
   const [pageContent, setPageContent] = useState("");
   const [pageColor, setPageColor] = useState("");
   const [pageMood, setPageMood] = useState(5);
+  const [newUsername, setNewUsername] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -51,6 +54,22 @@ function MainPage() {
     const data = await res.json();
     showOutput(data);
   };
+
+  const updateUsername = async () => {
+  const res = await fetch(`${api}/auth/update-username`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({
+      newUsername,
+      password: currentPassword,
+    }),
+  });
+
+  const data = await res.json();
+  showOutput(data);
+};
+
 
   const logout = async () => {
     const res = await fetch(`${api}/logout`, {
@@ -167,6 +186,25 @@ return(
         <button className="btn btn-info" onClick={getMe}>Get /auth/me</button>
       </div>
     </section>
+<section className="mb-4">
+  <h2>Update Username</h2>
+  <div className="mb-3">
+    <input
+      className="form-control mb-2"
+      value={newUsername}
+      onChange={(e) => setNewUsername(e.target.value)}
+      placeholder="New Username"
+    />
+    <input
+      className="form-control mb-2"
+      type="password"
+      value={currentPassword}
+      onChange={(e) => setCurrentPassword(e.target.value)}
+      placeholder="Current Password"
+    />
+    <button className="btn btn-dark" onClick={updateUsername}>Update Username</button>
+  </div>
+</section>
 
     <section className="mb-4">
       <h2>Request Password Reset</h2>

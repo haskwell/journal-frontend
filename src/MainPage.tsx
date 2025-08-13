@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 function MainPage() {
-  const api = "http://localhost:8787/api";
-  //const api = "https://journal-backend.haskwell.workers.dev/api";
+  //const api = "http://localhost:8787/api";
+  const api = "https://journal-backend.haskwell.workers.dev/api";
 
   const [regUsername, setRegUsername] = useState("");
   const [regEmail, setRegEmail] = useState("");

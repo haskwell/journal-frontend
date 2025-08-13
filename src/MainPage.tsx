@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 function MainPage() {
-  //const api = "http://localhost:8787/api";
-  const api = "https://journal-backend.haskwell.workers.dev/api";
+  const api = "http://localhost:8787/api";
+  //const api = "https://journal-backend.haskwell.workers.dev/api";
 
   const [regUsername, setRegUsername] = useState("");
   const [regEmail, setRegEmail] = useState("");
@@ -14,12 +14,11 @@ function MainPage() {
   const [pageMood, setPageMood] = useState(5);
   const [newUsername, setNewUsername] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
-
-
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-
   const [resetEmail, setResetEmail] = useState("");
+  const [sharedToUsername, setSharedToUsername] = useState("");
+  const [sharePageId, setSharePageId] = useState("");
 
   const [output, setOutput] = useState("Waiting for action...");
 
@@ -154,6 +153,57 @@ function MainPage() {
     const data = await res.json();
     showOutput(data);
   };
+  // SHARE: send page to user
+  const sharePage = async () => {
+    const res = await fetch(`${api}/auth/shared/${pageNumber}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ sharedToUsername }),
+    });
+    const data = await res.json();
+    showOutput(data);
+  };
+
+  // SHARE: delete share
+  const deleteShare = async () => {
+    const res = await fetch(`${api}/auth/shared/delete/${sharePageId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const data = await res.json();
+    showOutput(data);
+  };
+
+  // SHARE: get all shared with me
+  const getSharedWithMe = async () => {
+    const res = await fetch(`${api}/auth/shared?start=0&end=50`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await res.json();
+    showOutput(data);
+  };
+
+  // SHARE: get all I shared
+  const getISent = async () => {
+    const res = await fetch(`${api}/auth/shared/sent?start=0&end=50`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await res.json();
+    showOutput(data);
+  };
+
+  // SHARE: get a specific shared page by ID
+  const getSharedById = async () => {
+    const res = await fetch(`${api}/auth/shared/get/${sharePageId}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await res.json();
+    showOutput(data);
+  };
 
 return(
 <>
@@ -252,8 +302,59 @@ return(
       <h2>Response</h2>
       <pre className="bg-light p-3 border rounded">{output}</pre>
     </section>
-  </div>
-</>
+
+    
+      <section className="mb-4">
+        <h2>Share Pages</h2>
+        <div className="mb-3">
+          <input
+            className="form-control mb-2"
+            value={sharedToUsername}
+            onChange={(e) => setSharedToUsername(e.target.value)}
+            placeholder="Recipient Username"
+          />
+          <input
+            className="form-control mb-2"
+            value={pageNumber}
+            onChange={(e) => setPageNumber(e.target.value)}
+            placeholder="Page Number to Share"
+          />
+          <button className="btn btn-primary me-2" onClick={sharePage}>
+            Share Page
+          </button>
+        </div>
+
+        <div className="mb-3">
+          <input
+            className="form-control mb-2"
+            value={sharePageId}
+            onChange={(e) => setSharePageId(e.target.value)}
+            placeholder="Shared Page ID"
+          />
+          <button className="btn btn-danger me-2" onClick={deleteShare}>
+            Delete Share
+          </button>
+          <button className="btn btn-info me-2" onClick={getSharedById}>
+            Get Shared Page By ID
+          </button>
+        </div>
+
+        <div className="mb-3">
+          <button className="btn btn-outline-success me-2" onClick={getSharedWithMe}>
+            Get Pages Shared With Me
+          </button>
+          <button className="btn btn-outline-warning" onClick={getISent}>
+            Get Pages I Shared
+          </button>
+        </div>
+      </section>
+
+      <section className="mb-4">
+        <h2>Response</h2>
+        <pre className="bg-light p-3 border rounded">{output}</pre>
+      </section>
+    </div>
+  </>
 )
 
 }

@@ -112,7 +112,7 @@ function MainPage() {
   };
 
   const getPageList = async () => {
-    const res = await fetch(`${api}/auth/page?start=0&end=10`, {
+    const res = await fetch(`${api}/auth/page?start=0&end=50`, {
       method: "GET",
       credentials: "include",
     });

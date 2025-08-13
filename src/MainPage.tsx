@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 function MainPage() {
-  //const api = "http://localhost:8787/api";
-  const api = "https://journal-backend.haskwell.workers.dev/api";
+  const api = "http://localhost:8787/api";
+  //const api = "https://journal-backend.haskwell.workers.dev/api";
 
   const [regUsername, setRegUsername] = useState("");
   const [regEmail, setRegEmail] = useState("");
@@ -13,6 +13,8 @@ function MainPage() {
   const [pageColor, setPageColor] = useState("");
   const [pageMood, setPageMood] = useState(5);
   const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newEmail, setNewEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -61,6 +63,36 @@ function MainPage() {
     credentials: "include",
     body: JSON.stringify({
       newUsername,
+      password: currentPassword,
+    }),
+  });
+
+  const data = await res.json();
+  showOutput(data);
+};
+
+const updatePassword = async () => {
+  const res = await fetch(`${api}/auth/update-password`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({
+      newPassword,
+      password: currentPassword,
+    }),
+  });
+
+  const data = await res.json();
+  showOutput(data);
+};
+
+const updateEmail = async () => {
+  const res = await fetch(`${api}/auth/update-email`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({
+      newEmail,
       password: currentPassword,
     }),
   });
@@ -193,7 +225,7 @@ function MainPage() {
     });
     const data = await res.json();
     showOutput(data);
-  };4
+  };
 
   // SHARE: get a specific shared page by ID
   const getSharedById = async () => {
@@ -204,158 +236,113 @@ function MainPage() {
     const data = await res.json();
     showOutput(data);
   };
+return (
+  <div className="container-fluid my-4">
+    <div className="row">
+      {/* Left side: controls */}
+      <div className="col-md-7">
+        <h1 className="mb-4 text-center">📝 Page API Tester</h1>
 
-return(
-<>
-  <div className="container my-5">
-    <h1 className="mb-4 text-center">📝 Page API Tester</h1>
+        {/* Register */}
+        <details className="mb-3" open>
+          <summary className="fw-bold">Register</summary>
+          <input className="form-control mb-2" value={regUsername} onChange={(e) => setRegUsername(e.target.value)} placeholder="Username" />
+          <input className="form-control mb-2" value={regEmail} onChange={(e) => setRegEmail(e.target.value)} placeholder="Email" />
+          <input className="form-control mb-2" type="password" value={regPassword} onChange={(e) => setRegPassword(e.target.value)} placeholder="Password" />
+          <button className="btn btn-primary" onClick={register}>Register</button>
+        </details>
 
-    <section className="mb-4">
-      <h2>Register</h2>
-      <div className="mb-3">
-        <input className="form-control mb-2" value={regUsername} onChange={(e) => setRegUsername(e.target.value)} placeholder="Username" />
-        <input className="form-control mb-2" value={regEmail} onChange={(e) => setRegEmail(e.target.value)} placeholder="Email" />
-        <input className="form-control mb-2" type="password" value={regPassword} onChange={(e) => setRegPassword(e.target.value)} placeholder="Password" />
-        <button className="btn btn-primary" onClick={register}>Register</button>
+        {/* Login */}
+        <details className="mb-3">
+          <summary className="fw-bold">Login</summary>
+          <input className="form-control mb-2" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="Username" />
+          <input className="form-control mb-2" type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="Password" />
+          <button className="btn btn-success" onClick={login}>Login</button>
+        </details>
+
+        {/* Session */}
+        <details className="mb-3">
+          <summary className="fw-bold">Session</summary>
+          <button className="btn btn-warning me-2" onClick={logout}>Logout</button>
+          <button className="btn btn-info" onClick={getMe}>Get /auth/me</button>
+        </details>
+
+        {/* Update Username */}
+        <details className="mb-3">
+          <summary className="fw-bold">Update Username</summary>
+          <input className="form-control mb-2" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} placeholder="New Username" />
+          <input className="form-control mb-2" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} placeholder="Current Password" />
+          <button className="btn btn-dark" onClick={updateUsername}>Update Username</button>
+        </details>
+
+        <details className="mb-3">
+          <summary className="fw-bold">Update Email</summary>
+          <input className="form-control mb-2" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="New Email" />
+          <input className="form-control mb-2" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} placeholder="Current Password" />
+          <button className="btn btn-dark" onClick={updateEmail}>Update Email</button>
+        </details>
+        
+        <details className="mb-3">
+          <summary className="fw-bold">Update Password</summary>
+          <input className="form-control mb-2" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="New Password" />
+          <input className="form-control mb-2" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} placeholder="Current Password" />
+          <button className="btn btn-dark" onClick={updatePassword}>Update Password</button>
+        </details>
+
+        {/* Request Password Reset */}
+        <details className="mb-3">
+          <summary className="fw-bold">Request Password Reset</summary>
+          <input className="form-control mb-2" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)} placeholder="Email" />
+          <button className="btn btn-secondary" onClick={requestPasswordReset}>Request Reset Link</button>
+        </details>
+
+        {/* Pages */}
+        <details className="mb-3">
+          <summary className="fw-bold">Pages</summary>
+          <div className="mb-3">
+            <button className="btn btn-primary me-2" onClick={createPage}>Create Page</button>
+            <button className="btn btn-outline-primary" onClick={getPageList}>Get Page List</button>
+          </div>
+          <div className="row mb-3">
+            <div className="col-md-4">
+              <input className="form-control mb-2" value={pageNumber} onChange={(e) => setPageNumber(e.target.value)} placeholder="Page Number" />
+            </div>
+            <div className="col-md-8">
+              <button className="btn btn-info me-2" onClick={getPageByNumber}>Get by Number</button>
+              <button className="btn btn-danger" onClick={deletePage}>Delete Page</button>
+            </div>
+          </div>
+          <input className="form-control mb-2" value={pageTitle} onChange={(e) => setPageTitle(e.target.value)} placeholder="Title" />
+          <input className="form-control mb-2" value={pageContent} onChange={(e) => setPageContent(e.target.value)} placeholder="Content" />
+          <input className="form-control mb-2" value={pageColor} onChange={(e) => setPageColor(e.target.value)} placeholder="Color" />
+          <input className="form-control mb-2" type="number" value={pageMood} onChange={(e) => setPageMood(parseInt(e.target.value))} placeholder="Mood (0-10)" min={0} max={10} />
+          <button className="btn btn-success" onClick={updatePage}>Update Page</button>
+        </details>
+
+        {/* Share Pages */}
+        <details className="mb-3">
+          <summary className="fw-bold">Share Pages</summary>
+          <input className="form-control mb-2" value={sharedToUsername} onChange={(e) => setSharedToUsername(e.target.value)} placeholder="Recipient Username" />
+          <input className="form-control mb-2" value={pageNumber} onChange={(e) => setPageNumber(e.target.value)} placeholder="Page Number to Share" />
+          <button className="btn btn-primary me-2" onClick={sharePage}>Share Page</button>
+          <hr />
+          <input className="form-control mb-2" value={sharePageId} onChange={(e) => setSharePageId(e.target.value)} placeholder="Shared Page ID" />
+          <button className="btn btn-danger me-2" onClick={deleteShare}>Delete Share</button>
+          <button className="btn btn-info me-2" onClick={getSharedById}>Get Shared Page By ID</button>
+          <hr />
+          <button className="btn btn-outline-success me-2" onClick={getSharedWithMe}>Get Pages Shared With Me</button>
+          <button className="btn btn-outline-warning" onClick={getISent}>Get Pages I Shared</button>
+        </details>
       </div>
-    </section>
 
-    <section className="mb-4">
-      <h2>Login</h2>
-      <div className="mb-3">
-        <input className="form-control mb-2" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="Username" />
-        <input className="form-control mb-2" type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="Password" />
-        <button className="btn btn-success" onClick={login}>Login</button>
-      </div>
-    </section>
-
-    <section className="mb-4">
-      <h2>Session</h2>
-      <div className="mb-3">
-        <button className="btn btn-warning me-2" onClick={logout}>Logout</button>
-        <button className="btn btn-info" onClick={getMe}>Get /auth/me</button>
-      </div>
-    </section>
-<section className="mb-4">
-  <h2>Update Username</h2>
-  <div className="mb-3">
-    <input
-      className="form-control mb-2"
-      value={newUsername}
-      onChange={(e) => setNewUsername(e.target.value)}
-      placeholder="New Username"
-    />
-    <input
-      className="form-control mb-2"
-      type="password"
-      value={currentPassword}
-      onChange={(e) => setCurrentPassword(e.target.value)}
-      placeholder="Current Password"
-    />
-    <button className="btn btn-dark" onClick={updateUsername}>Update Username</button>
-  </div>
-</section>
-
-    <section className="mb-4">
-      <h2>Request Password Reset</h2>
-      <div className="mb-3">
-        <input className="form-control mb-2" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)} placeholder="Email" />
-        <button className="btn btn-secondary" onClick={requestPasswordReset}>Request Reset Link</button>
-      </div>
-    </section>
-
-    <section className="mb-4">
-      <h2>Pages</h2>
-      <div className="mb-3">
-        <button className="btn btn-primary me-2" onClick={createPage}>Create Page</button>
-        <button className="btn btn-outline-primary" onClick={getPageList}>Get Page List</button>
-      </div>
-
-      <div className="row mb-3">
-        <div className="col-md-4">
-          <input className="form-control mb-2" value={pageNumber} onChange={(e) => setPageNumber(e.target.value)} placeholder="Page Number" />
-        </div>
-        <div className="col-md-8">
-          <button className="btn btn-info me-2" onClick={getPageByNumber}>Get by Number</button>
-          <button className="btn btn-danger" onClick={deletePage}>Delete Page</button>
-        </div>
-      </div>
-
-      <div className="mb-3">
-        <input className="form-control mb-2" value={pageTitle} onChange={(e) => setPageTitle(e.target.value)} placeholder="Title" />
-        <input className="form-control mb-2" value={pageContent} onChange={(e) => setPageContent(e.target.value)} placeholder="Content" />
-        <input className="form-control mb-2" value={pageColor} onChange={(e) => setPageColor(e.target.value)} placeholder="Color" />
-        <input
-          className="form-control mb-2"
-          type="number"
-          value={pageMood}
-          onChange={(e) => setPageMood(parseInt(e.target.value))}
-          placeholder="Mood (0-10)"
-          min={0}
-          max={10}
-        />
-        <button className="btn btn-success" onClick={updatePage}>Update Page</button>
-      </div>
-    </section>
-
-    <section className="mb-4">
-      <h2>Response</h2>
-      <pre className="bg-light p-3 border rounded">{output}</pre>
-    </section>
-
-    
-      <section className="mb-4">
-        <h2>Share Pages</h2>
-        <div className="mb-3">
-          <input
-            className="form-control mb-2"
-            value={sharedToUsername}
-            onChange={(e) => setSharedToUsername(e.target.value)}
-            placeholder="Recipient Username"
-          />
-          <input
-            className="form-control mb-2"
-            value={pageNumber}
-            onChange={(e) => setPageNumber(e.target.value)}
-            placeholder="Page Number to Share"
-          />
-          <button className="btn btn-primary me-2" onClick={sharePage}>
-            Share Page
-          </button>
-        </div>
-
-        <div className="mb-3">
-          <input
-            className="form-control mb-2"
-            value={sharePageId}
-            onChange={(e) => setSharePageId(e.target.value)}
-            placeholder="Shared Page ID"
-          />
-          <button className="btn btn-danger me-2" onClick={deleteShare}>
-            Delete Share
-          </button>
-          <button className="btn btn-info me-2" onClick={getSharedById}>
-            Get Shared Page By ID
-          </button>
-        </div>
-
-        <div className="mb-3">
-          <button className="btn btn-outline-success me-2" onClick={getSharedWithMe}>
-            Get Pages Shared With Me
-          </button>
-          <button className="btn btn-outline-warning" onClick={getISent}>
-            Get Pages I Shared
-          </button>
-        </div>
-      </section>
-
-      <section className="mb-4">
+      {/* Right side: always-visible response */}
+      <div className="col-md-5 position-sticky" style={{ top: "20px", height: "90vh", overflowY: "auto" }}>
         <h2>Response</h2>
         <pre className="bg-light p-3 border rounded">{output}</pre>
-      </section>
+      </div>
     </div>
-  </>
-)
+  </div>
+);
 
 }
 

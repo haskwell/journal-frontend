@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const api = "http://localhost:8787/api";
-//const api = "https://journal-backend.haskwell.workers.dev/api";
+//const api = "http://localhost:8787/api";
+const api = "https://journal-backend.haskwell.workers.dev/api";
 
 export async function Login(loginUsername: string, loginPassword: string){
     const res = await axios.post(

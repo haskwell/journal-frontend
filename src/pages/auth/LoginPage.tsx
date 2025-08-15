@@ -19,7 +19,7 @@ function LoginPage(){
         try{
             const res = await Login(username, password);
             if(res.success){
-                navigate('/home')
+                navigate('/')
             }
             else{
                 setError("Login failed");

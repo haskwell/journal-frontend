@@ -49,7 +49,7 @@ export async function IsLoggedIn(){
         `${api}/auth/me`,
         {withCredentials: true}
     )
-    return res.data;
+    return res.data.success;
 }
 
 export async function RequestPasswordReset(requestEmail: string){

@@ -18,7 +18,7 @@ function RegisterPage(){
         try{
             const res = await Register(username, email, password);
             if(res.success){
-                navigate('/home')
+                navigate('/login')
             }
             else{
                 setError("Registration failed")

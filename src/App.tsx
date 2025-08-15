@@ -1,14 +1,34 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import MainPage from './MainPage';
-import ResetPasswordPage from './ResetPasswordPage';
+import ResetPasswordPage from './pages/auth/ResetPasswordPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import LoginPage from './pages/auth/LoginPage';
+import HomePage from './pages/HomePage';
+import OptionsPage from './pages/user/OptionsPage';
+import ChangeEmailPage from './pages/user/ChangeEmailPage';
+import ChangePasswordPage from './pages/user/ChangePasswordPage';
+import ChangeUsernamePage from './pages/user/ChangeUsernamePage';
+import EntriesPage from './pages/entries/EntriesPage';
+import UpdateEntriesPage from './pages/entries/UpdateEntriesPage';
+import SharingPage from './pages/sharing/SharingPage';
+import ViewSharedPage from './pages/sharing/ViewSharedPage';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/options/email" element={<ChangeEmailPage />} />
+        <Route path="/options/password" element={<ChangePasswordPage />} />
+        <Route path="/options/username" element={<ChangeUsernamePage />} />
+        <Route path="/options" element={<OptionsPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/entries" element={<EntriesPage />} />
+        <Route path="/entries/update/:pageNumber" element={<UpdateEntriesPage />} />
+        <Route path="/entries/shared" element={<SharingPage />} />
+        <Route path="/entries/shared/:pageId" element={<ViewSharedPage />} />
       </Routes>
     </Router>
   );

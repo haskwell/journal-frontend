@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPages, newPage } from "../../services/pageService";
 import type { Page } from "../../types/page";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function EntriesPage(){
 

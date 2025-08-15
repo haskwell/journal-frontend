@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { newPage } from "../services/pageService";
 
 function HomePage() {
-  const api = "http://localhost:8787/api";
-  //const api = "https://journal-backend.haskwell.workers.dev/api";
+  //const api = "http://localhost:8787/api";
+  const api = "https://journal-backend.haskwell.workers.dev/api";
     const navigate = useNavigate()
 
   const logout = async () => {

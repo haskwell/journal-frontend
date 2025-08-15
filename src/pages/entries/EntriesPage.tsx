@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { getPages, newPage } from "../../services/pageService";
 import type { Page } from "../../types/page";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function EntriesPage(){
 
     const [entries, setEntries] = useState<Page[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
 
     useEffect(() => {
         async function fetchEntries(){
@@ -23,7 +24,7 @@ function EntriesPage(){
             }
         }
         fetchEntries();
-    }, [])
+    }, [location])
 
     async function addEntry(){
         const res = await newPage()

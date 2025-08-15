@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { UpdatePageRequest } from "../types/page";
 
-//const api = "http://localhost:8787/api";
-const api = "https://journal-backend.haskwell.workers.dev/api";
+const api = "http://localhost:8787/api";
+//const api = "https://journal-backend.haskwell.workers.dev/api";
 
 export async function newPage(){
     const res = await axios.post(

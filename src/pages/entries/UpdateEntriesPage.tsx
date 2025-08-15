@@ -56,6 +56,7 @@ function UpdateEntriesPage(){
         if(!res.success){
             setUpdateError(res.message)
         }
+        navigate(-1);
     }
 
 if (loading)

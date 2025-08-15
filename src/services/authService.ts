@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const api = "http://localhost:8787/api";
-const api = "https://journal-backend.haskwell.workers.dev/api";
+const api = "http://localhost:8787/api";
+//const api = "https://journal-backend.haskwell.workers.dev/api";
 
 export async function Login(loginUsername: string, loginPassword: string){
     const res = await axios.post(
@@ -46,10 +46,20 @@ export async function Logout(){
 
 export async function IsLoggedIn(){
     const res = await axios.get(
+        `${api}/isloggedin`,
+        {
+            withCredentials: true
+        }
+    )
+    return res.data.success
+}
+
+export async function getUser(){
+    const res = await axios.get(
         `${api}/auth/me`,
         {withCredentials: true}
     )
-    return res.data.success;
+    return res.data;
 }
 
 export async function RequestPasswordReset(requestEmail: string){

@@ -15,9 +15,14 @@ const AuthGuard = () => {
     }
     checkLogin()
   }, [])
-  if(loading){
-    return <p>Loading...</p>
-  }
+if (loading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[#1c1b18] text-[#d9c8b8] font-serif text-xl">
+      Loading...
+    </div>
+  );
+}
+
   if(!loggedIn){
     return <Navigate to="/login"/>
   }

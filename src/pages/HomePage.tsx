@@ -4,12 +4,14 @@ import { newPage } from "../services/pageService";
 function HomePage() {
   const api = "http://localhost:8787/api";
   //const api = "https://journal-backend.haskwell.workers.dev/api";
+    const navigate = useNavigate()
 
   const logout = async () => {
         await fetch(`${api}/logout`, {
             method: "POST",
             credentials: "include",
         });
+        navigate('/login');
   };
 
   const getMe = async () => {
@@ -19,7 +21,6 @@ function HomePage() {
         });
   };
 
-    const navigate = useNavigate()
 return (
   <div className="min-h-screen flex flex-col items-center justify-center bg-[#1c1b18] p-6 space-y-8">
     <h1 className="text-5xl font-serif font-bold text-[#d9c8b8]">SPERO</h1>

@@ -13,6 +13,10 @@ function EntriesPage(){
         async function fetchEntries(){
             try{
                 const res = await getPages(0, 20)
+                if(!res.success){
+                    setError(res.message)
+                    return;
+                }
                 setEntries(res.data)
             }
             catch(err){

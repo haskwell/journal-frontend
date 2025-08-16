@@ -22,7 +22,7 @@ function LoginPage(){
                 navigate('/home')
             }
             else{
-                setError("Login failed");
+                setError(res.message);
             }
         }
         catch (err){

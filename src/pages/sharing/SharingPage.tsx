@@ -13,12 +13,12 @@ function SharingPage(){
     useEffect(() => {
         async function fetchAll() {
             try {
-            const [resSharedWithMe, resSharedByMe] = await Promise.all([
-                getSharedPages(0, 20),
-                getSharedPagesISent(0, 20)
-            ]);
-            setSharedEntries(resSharedWithMe.data);
-            setSharedEntriesMe(resSharedByMe.data);
+                const [resSharedWithMe, resSharedByMe] = await Promise.all([
+                    getSharedPages(0, 20),
+                    getSharedPagesISent(0, 20)
+                ]);
+                setSharedEntries(resSharedWithMe.data);
+                setSharedEntriesMe(resSharedByMe.data);
             } catch(err) {
             setError("error");
             } finally {

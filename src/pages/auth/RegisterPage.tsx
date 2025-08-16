@@ -21,7 +21,7 @@ function RegisterPage(){
                 navigate('/login')
             }
             else{
-                setError("Registration failed")
+                setError(res.message)
             }
         }
         catch(err){

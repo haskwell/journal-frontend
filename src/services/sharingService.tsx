@@ -44,7 +44,7 @@ export async function getSharedPageById(pageId: string | undefined){
             withCredentials: true
         }
     )
-    return res.data.data;
+    return res.data;
 }
 
 export async function deleteShare(pageId: string){

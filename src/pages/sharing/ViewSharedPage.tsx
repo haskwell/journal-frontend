@@ -19,8 +19,12 @@ function ViewSharedPage(){
 
         async function fetchPage(){
             try{
-                const res : Page = await getSharedPageById(pageId);
-                setPage(res)
+                const res = await getSharedPageById(pageId);
+                if(!res.success){
+                  setError(res.message)
+                  return;
+                }
+                setPage(res.data)
             }
             catch{
                 setError("error")
